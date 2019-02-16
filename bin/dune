@@ -1,0 +1,3 @@
+(executable
+  (name adate)
+  (libraries str calendar))

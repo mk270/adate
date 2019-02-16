@@ -27,36 +27,36 @@ end = struct
   let day_of cd =
     let dic = day_in_cycle cd in
       if dic = 0
-      then 6
+      then 6 (* leap day *)
       else (((dic - 1) mod 365) mod 30 + 1)
 
-  (* thout == 0; intercalary month == 12 *)                 
   let month_of cd =
     let dic = day_in_cycle cd in
       if dic = 0
-      then 12
+      then 12 (* intercalary month *)
       else ((dic - 1) mod 365) / 30
 
   let month_name_of = function
-    | 0 -> "Thout"
-    | 1 -> "Paopi"
-    | 2 -> "Hathor"
-    | 3 -> "Koiak"
-    | 4 -> "Tobi"
-    | 5 -> "Meshir"
-    | 6 -> "Paremhat"
-    | 7 -> "Parmouti"
-    | 8 -> "Pashons"
-    | 9 -> "Paoni"
+    |  0 -> "Thout"
+    |  1 -> "Paopi"
+    |  2 -> "Hathor"
+    |  3 -> "Koiak"
+    |  4 -> "Tobi"
+    |  5 -> "Meshir"
+    |  6 -> "Paremhat"
+    |  7 -> "Parmouti"
+    |  8 -> "Pashons"
+    |  9 -> "Paoni"
     | 10 -> "Epip"
     | 11 -> "Mesori"
     | 12 -> "Pi Kogi Enavot"
     | _  -> assert false
 
   let string_of cd = 
-    let d = day_of cd |> string_of_int in
+    let d =   day_of cd |> string_of_int in
     let m = month_of cd |> month_name_of in
       d ^ " " ^ m
+
 end
 
 let usage () =
@@ -67,15 +67,17 @@ let version () =
   |> print_endline
 
 let handle d =
-  let cd = CopticCalendar.of_date d in
-    CopticCalendar.string_of cd |> print_endline
+  CopticCalendar.of_date d
+  |> CopticCalendar.string_of
+  |> print_endline
 
 let specific date_str =
   CalendarLib.Printer.Date.from_fstring "%Y-%m-%d" date_str
   |> handle
 
 let default () =
-  CalendarLib.Date.today () |> handle
+  CalendarLib.Date.today ()
+  |> handle
 
 let main () =
   match Sys.argv with

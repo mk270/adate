@@ -59,23 +59,28 @@ end
 let usage () =
   print_endline "Usage: adate [YYYY-MM-DD]"
 
+let version () =
+  CalendarLib.Version.version
+  |> print_endline
+
 let handle d =
   let cd = CopticCalendar.of_date d in
     CopticCalendar.string_of cd |> print_endline
+
+let specific date_str =
+  CalendarLib.Printer.Date.from_fstring "%Y-%m-%d" date_str
+  |> handle
 
 let default () =
   CalendarLib.Date.today () |> handle
 
 let main () =
   match Sys.argv with
-    | [| _name ; "--cal-version" |] ->
-       CalendarLib.Version.version |> print_endline
-    | [| _name ; "--help" |] -> usage ()
-    | [| _name ; x |] ->
-       let ds = CalendarLib.Printer.Date.from_fstring "%Y-%m-%d" x in
-         handle ds
-    | [| _name |] -> default ()
-    | _ -> usage ()
+    | [| _name ; "--cal-version" |] -> version ()
+    | [| _name ; "--help" |]        -> usage ()
+    | [| _name ; date_str |]        -> specific date_str
+    | [| _name |]                   -> default ()
+    | _                             -> usage ()
 
 let () =
   main ()

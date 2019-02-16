@@ -9,10 +9,13 @@
 *)
 
 module CopticCalendar : sig
+
   type t
   val of_date : CalendarLib.Date.t -> t
   val string_of : t -> string
+
 end = struct
+
   type t = CalendarLib.Date.t
 
   let of_date d = 

@@ -1,3 +1,4 @@
 (executable
-  (name adate)
-  (libraries str calendar))
+ (public_name adate)
+ (name main)
+ (libraries adate calendar))

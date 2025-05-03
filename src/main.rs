@@ -1,7 +1,6 @@
 /*
  * This is a tool for printing out the date in the Coptic calendar.
- * Known bugs: it accepts invalid Gregorian dates
- *             it probably only works for 1901 -> 2099
+ *
  * Author: Martin Keegan (OCaml version)
  * Rust translation: Claude
  * Licence: Apache 2.0
@@ -88,10 +87,6 @@ fn usage() {
     println!("Usage: adate [YYYY-MM-DD]");
 }
 
-fn version() {
-    println!("{}", env!("CARGO_PKG_VERSION", "0.1.0"));
-}
-
 fn handle(date: NaiveDate) {
     let coptic = CopticDate::from_date(date);
     println!("{}", coptic);
@@ -118,7 +113,6 @@ fn main() {
     match args.len() {
         2 => {
             match args[1].as_str() {
-                "--cal-version" => version(),
                 "--help" => usage(),
                 date_str => {
                     if let Err(e) = specific(date_str) {

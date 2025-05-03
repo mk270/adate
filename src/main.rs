@@ -9,6 +9,7 @@
 
 use chrono::{Local, NaiveDate, Datelike};
 use std::env;
+use std::fmt;
 
 // Modified Julian Day calculation
 fn date_to_mjd(date: NaiveDate) -> i32 {
@@ -73,11 +74,13 @@ impl CopticDate {
             _ => panic!("Invalid Coptic month")
         }
     }
-    
-    fn to_string(&self) -> String {
-        let day = self.day_of().to_string();
+}
+
+impl fmt::Display for CopticDate {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let day = self.day_of();
         let month = Self::month_name_of(self.month_of());
-        format!("{} {}", day, month)
+        write!(f, "{} {}", day, month)
     }
 }
 
@@ -91,7 +94,7 @@ fn version() {
 
 fn handle(date: NaiveDate) {
     let coptic = CopticDate::from_date(date);
-    println!("{}", coptic.to_string());
+    println!("{}", coptic);
 }
 
 fn specific(date_str: &str) -> Result<(), String> {

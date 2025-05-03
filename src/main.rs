@@ -24,13 +24,13 @@ fn date_to_mjd(date: NaiveDate) -> i32 {
     day + (153 * m + 2) / 5 + 365 * y + y / 4 - y / 100 + y / 400 - 32045 - 2400001
 }
 
-struct CopticCalendar {
+struct CopticDate {
     date: NaiveDate,
 }
 
-impl CopticCalendar {
+impl CopticDate {
     fn from_date(date: NaiveDate) -> Self {
-        CopticCalendar { date }
+        CopticDate { date }
     }
     
     fn day_in_cycle(&self) -> i32 {
@@ -90,7 +90,7 @@ fn version() {
 }
 
 fn handle(date: NaiveDate) {
-    let coptic = CopticCalendar::from_date(date);
+    let coptic = CopticDate::from_date(date);
     println!("{}", coptic.to_string());
 }
 

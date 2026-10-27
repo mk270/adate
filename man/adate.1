@@ -1,0 +1,68 @@
+.TH ADATE 1 "Oct 27, 2026" "" "User Commands"
+.SH NAME
+adate \- print the date in the Coptic calendar
+.SH SYNOPSIS
+.B adate
+.RI [ YYYY-MM-DD ]
+.br
+.B adate
+.B \-\-help
+.SH DESCRIPTION
+.B adate
+converts a Gregorian calendar date into its equivalent date in the
+Coptic calendar and prints the result to standard output.
+.PP
+If invoked with no arguments,
+.B adate
+uses the current local date. If invoked with a single argument in the
+form
+.IR YYYY-MM-DD ,
+that date is converted instead.
+.PP
+The Coptic date is calculated via an intermediate Modified Julian Day
+representation, and the output consists of the day number followed by
+the name of the Coptic month, e.g. \(dq15 Thout\(dq. The Coptic
+calendar has twelve months of thirty days each, plus a short
+intercalary thirteenth month, \(dqPi Kogi Enavot\(dq, of five or six
+days, the sixth being the Coptic leap day.
+.SH OPTIONS
+.TP
+.B \-\-help
+Display a short usage message and exit.
+.SH ARGUMENTS
+.TP
+.I YYYY-MM-DD
+A Gregorian calendar date to convert, given as a four-digit year, a
+two-digit month, and a two-digit day, separated by hyphens (for
+example,
+.IR 2026-10-27 ).
+If this argument cannot be parsed as a valid date, an error message is
+printed to standard error, followed by a usage message, and the
+program exits with a non-zero or otherwise unspecified status.
+.SH EXIT STATUS
+.B adate
+exits with status 0 on success. If more than one argument is supplied,
+a usage message is printed. If the supplied date argument cannot be
+parsed, an error is reported and a usage message is printed.
+.SH EXAMPLES
+.TP
+Print today's date in the Coptic calendar:
+.RS
+.B adate
+.RE
+.TP
+Convert a specific Gregorian date:
+.RS
+.B adate 2026-10-27
+.RE
+.TP
+Show usage information:
+.RS
+.B adate \-\-help
+.RE
+.SH AUTHOR
+The
+.B adate
+program was written by Martin Keegan.
+.SH SEE ALSO
+.BR date (1)
